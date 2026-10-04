@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import roomescape.auth.JwtTokenProvider;
+import auth.JwtTokenProvider;
 import roomescape.member.domain.Member;
 import roomescape.member.domain.Role;
 
@@ -64,7 +64,7 @@ class AuthExceptionHandlingTest {
                 Role.USER
         );
 
-        String token = jwtTokenProvider.createToken(nonexistentMember);
+        String token = jwtTokenProvider.createToken(nonexistentMember.getId(), nonexistentMember.getRole().name());
 
         RestAssured.given().log().all()
                 .cookie("token", token)
@@ -84,7 +84,7 @@ class AuthExceptionHandlingTest {
                 Role.ADMIN
         );
 
-        String expiredToken = expiredTokenProvider.createToken(member);
+        String expiredToken = expiredTokenProvider.createToken(member.getId(), member.getRole().name());
 
         RestAssured.given().log().all()
                 .cookie("token", expiredToken)

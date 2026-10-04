@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static roomescape.TokenTestSupport.createToken;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -71,27 +72,6 @@ public class MissionStepTest {
 
         assertThat(adminResponse.statusCode()).isEqualTo(201);
         assertThat(adminResponse.as(ReservationResponse.class).getName()).isEqualTo("브라운");
-    }
-
-    private String createToken(String email, String password) {
-        Map<String, String> params = new HashMap<>();
-        params.put("email", email);
-        params.put("password", password);
-
-        ExtractableResponse<Response> response =
-                RestAssured.given().log().all()
-                        .contentType(ContentType.JSON)
-                        .body(params)
-                        .when().post("/login")
-                        .then().log().all()
-                        .statusCode(200)
-                        .extract();
-
-        return response.headers()
-                .get("Set-Cookie")
-                .getValue()
-                .split(";")[0]
-                .split("=")[1];
     }
 
     @Test
