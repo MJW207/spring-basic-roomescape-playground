@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import auth.JwtTokenProvider;
+import org.springframework.test.context.ActiveProfiles;
 import roomescape.member.domain.Member;
 import roomescape.member.domain.Role;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class AuthExceptionHandlingTest {
