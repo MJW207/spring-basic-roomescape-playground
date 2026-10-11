@@ -36,6 +36,7 @@ if ! command -v curl >/dev/null; then
 fi
 
 mkdir -p "$RUN_DIR"
+chmod 700 "$RUN_DIR"
 
 git pull --ff-only origin "$DEPLOY_BRANCH"
 
